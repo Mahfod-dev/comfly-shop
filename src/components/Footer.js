@@ -23,10 +23,11 @@ const Wrapper = styled.footer`
 	text-align: center;
 	span {
 		color: var(--clr-primary-5);
+		margin-left: 0.3rem;
 	}
 	h5 {
 		color: var(--clr-white);
-		margin: 0.1rem;
+		margin: 0.3rem;
 
 		font-weight: 400;
 		text-transform: none;
