@@ -75,14 +75,64 @@ const filter_reducer = (state, action) => {
 
 	if (action.type === UPDATE_FILTERS) {
 		const { name, value } = action.payload
-		console.log(value)
-		console.log(name, value)
+
 		return { ...state, filters: { ...state.filters, [name]: value } }
 	}
 
 	if (action.type === FILTER_PRODUCTS) {
-		console.log('filtering product')
-		return { ...state }
+		const { all_products } = state
+
+		const { text, company, category, color, price, shipping } = state.filters
+		let tempsProducts = [...all_products]
+
+		if (text) {
+			tempsProducts = tempsProducts.filter((product) =>
+				product.name.toLowerCase().startsWith(text)
+			)
+		}
+
+		if (category !== 'all') {
+			tempsProducts = tempsProducts.filter(
+				(product) => product.category === category
+			)
+		}
+		if (company !== 'all') {
+			tempsProducts = tempsProducts.filter(
+				(product) => product.company === company
+			)
+		}
+		if (color !== 'all') {
+			tempsProducts = tempsProducts.filter((product) =>
+				product.colors.find((c) => c === color)
+			)
+		}
+		if (company !== 'all') {
+			tempsProducts = tempsProducts.filter(
+				(product) => product.company === company
+			)
+		}
+		tempsProducts = tempsProducts.filter((product) => product.price <= price)
+		if (shipping) {
+			tempsProducts = tempsProducts.filter(
+				(product) => product.shipping === true
+			)
+		}
+
+		return { ...state, filter_products: tempsProducts }
+	}
+	if (action.type === CLEAR_FILTERS) {
+		return {
+			...state,
+			filters: {
+				...state.filters,
+				text: '',
+				company: 'all',
+				category: 'all',
+				color: 'all',
+				price: state.filters.max_price,
+				shipping: false,
+			},
+		}
 	}
 
 	throw new Error(`No Matching "${action.type}" - action type`)

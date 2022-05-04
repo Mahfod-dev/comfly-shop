@@ -2,8 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 import { BsStarFill, BsStarHalf, BsStar } from 'react-icons/bs'
 const Stars = ({ stars, reviews }) => {
-	console.log(stars, reviews)
-	console.log(stars)
 	const tempStars = Array.from({ length: 5 }, (_, index) => {
 		const number = index + 0.5
 		return (
@@ -18,7 +16,6 @@ const Stars = ({ stars, reviews }) => {
 			</span>
 		)
 	})
-	console.log(tempStars)
 
 	return (
 		<Wrapper>
